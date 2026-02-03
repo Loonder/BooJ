@@ -1,0 +1,3 @@
+boo.paulomoraes.cloud {
+    reverse_proxy dashboard:8501
+}

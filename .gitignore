@@ -1,0 +1,209 @@
+# ========================================
+# 🔒 GITIGNORE COMPLETO - JOBPULSE
+# ========================================
+# Criado para evitar exposição de credenciais
+
+# ========================================
+# 🚨 CREDENCIAIS E SEGREDOS (CRÍTICO!)
+# ========================================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+*.p12
+secrets/
+credentials/
+.secrets
+*.secret
+
+# API Keys e Tokens
+*_token.txt
+*_key.txt
+api_keys/
+
+# ========================================
+# 🗄️ BANCO DE DADOS E DADOS SENSÍVEIS
+# ========================================
+*.db
+*.sqlite
+*.sqlite3
+data/
+*.sql
+backups/
+*.dump
+
+# ========================================
+# 🐍 PYTHON
+# ========================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+venv/
+venv311/
+env/
+ENV/
+.venv/
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# ========================================
+# 📝 LOGS
+# ========================================
+*.log
+logs/
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ========================================
+# 🌐 NODE.JS (para dashboard futuro)
+# ========================================
+node_modules/
+npm-debug.log
+yarn-error.log
+.pnp
+.pnp.js
+
+# Next.js
+.next/
+out/
+.vercel
+
+# ========================================
+# 💻 IDEs E EDITORES
+# ========================================
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# ========================================
+# 🖥️ SISTEMA OPERACIONAL
+# ========================================
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+
+# ========================================
+# 🧪 TESTES E TEMPORÁRIOS
+# ========================================
+test_*.py
+debug_*.py
+temp/
+tmp/
+*.tmp
+scratch/
+
+# Exceto os testes oficiais na pasta tests/
+!tests/test_*.py
+
+# ========================================
+# 📦 BACKUPS E DUPLICATAS
+# ========================================
+*.bak
+*.backup
+*_backup.*
+*_old.*
+*.orig
+
+# ========================================
+# 🎨 MÍDIA E ASSETS GRANDES
+# ========================================
+*.mp4
+*.avi
+*.mov
+*.zip
+*.tar.gz
+*.rar
+
+# ========================================
+# 🔧 CONFIGS LOCAIS
+# ========================================
+config.local.*
+*.local
+local_settings.py
+
+# ========================================
+# 📊 GRAFANA E PROMETHEUS (dados locais)
+# ========================================
+prometheus_data/
+grafana_data/
+
+# ========================================
+# 📚 DOCUMENTAÇÕES (privadas - exceto README.md)
+# ========================================
+*.md
+!README.md
+# Permitir alguns docs importantes se necessário:
+# !CONTRIBUTING.md
+# !CHANGELOG.md
+
+# ========================================
+# ✅ ARQUIVOS QUE DEVEM SER COMMITADOS
+# ========================================
+# (Remover do gitignore se necessário)
+# !.env.example
+# !requirements.txt
+# !README.md

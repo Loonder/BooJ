@@ -1,0 +1,41 @@
+# JobPulse - Dependências
+# =======================
+# Instalar com: pip install -r requirements.txt
+
+# Requisições HTTP
+requests>=2.31.0
+
+# Parser HTML
+beautifulsoup4>=4.12.0
+
+# Parser HTML mais rápido (opcional mas recomendado)
+lxml>=4.9.0
+
+# Parser de RSS
+feedparser>=6.0.10
+
+# Interface Avançada (CLI)
+rich>=13.7.0
+
+# Stealth Scraping (Browser Automation)
+selenium>=4.16.0
+webdriver-manager>=4.0.1
+fake-useragent>=1.4.0
+undetected-chromedriver>=3.5.0
+
+# Dashboard (Web UI)
+streamlit>=1.30.0
+pandas>=2.1.0
+watchdog>=3.0.0
+plotly>=5.18.0
+
+# Intelligence & Matching
+fuzzywuzzy>=0.18.0
+python-Levenshtein>=0.23.0
+
+# Notifications & Social
+python-telegram-bot>=20.0
+tweepy>=4.14.0
+
+# Telegram Channel Scraping
+telethon>=1.34.0
