@@ -183,6 +183,25 @@ src_backup_*/
 *.tar.gz
 *.rar
 
+# Assets no root (devem ficar em /assets/)
+/boo.png
+/logo.png
+
+# ========================================
+# 🖥️ OS-SPECIFIC SCRIPTS
+# ========================================
+*.bat
+*.ps1
+setup_*.sh
+start_*.sh
+
+# ========================================
+# 🐳 INCOMPLETE CONFIGS
+# ========================================
+Caddyfile
+docker-compose.yml
+# (Re-add when complete)
+
 # ========================================
 # 🔧 CONFIGS LOCAIS
 # ========================================
