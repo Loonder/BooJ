@@ -199,18 +199,26 @@ grafana_data/
 # ========================================
 # 📚 DOCUMENTAÇÕES
 # ========================================
-# Allow important docs
+# Block all markdown files by default
+*.md
+
+# Allow only public documentation
 !README.md
 !CONTRIBUTING.md
 !CHANGELOG.md
 !LICENSE
 
-# Block internal docs (optional - comment out to make them public)
-# SECURITY_AUDIT.md
-# OBSERVABILITY.md
-# GRAFANA_SETUP.md
-# PERFORMANCE.md
+# Internal docs (blocked)
 # DEPLOY_PACKAGE.md
+# GRAFANA_SETUP.md
+# JOBSPY_INTEGRATION.md
+# OBSERVABILITY.md
+# PERFORMANCE.md
+# PYTHON311_SETUP.md
+# SECURITY.md
+# SECURITY_AUDIT.md
+# TESTING_SUMMARY.md
+# project_overview.md
 
 # ========================================
 # ✅ ARQUIVOS QUE DEVEM SER COMMITADOS
