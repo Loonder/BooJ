@@ -1,0 +1,23 @@
+[Unit]
+Description=BooJ FastAPI Service
+After=network.target
+
+[Service]
+Type=simple
+User=booj
+Group=booj
+WorkingDirectory=/opt/booj
+Environment="PATH=/opt/booj/venv311/bin"
+EnvironmentFile=/opt/booj/.env.production
+ExecStart=/opt/booj/venv311/bin/uvicorn api.main:app --host 0.0.0.0 --port 8001 --workers 4
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Security
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
