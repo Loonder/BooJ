@@ -197,13 +197,20 @@ prometheus_data/
 grafana_data/
 
 # ========================================
-# 📚 DOCUMENTAÇÕES (privadas - exceto README.md)
+# 📚 DOCUMENTAÇÕES
 # ========================================
-*.md
+# Allow important docs
 !README.md
-# Permitir alguns docs importantes se necessário:
-# !CONTRIBUTING.md
-# !CHANGELOG.md
+!CONTRIBUTING.md
+!CHANGELOG.md
+!LICENSE
+
+# Block internal docs (optional - comment out to make them public)
+# SECURITY_AUDIT.md
+# OBSERVABILITY.md
+# GRAFANA_SETUP.md
+# PERFORMANCE.md
+# DEPLOY_PACKAGE.md
 
 # ========================================
 # ✅ ARQUIVOS QUE DEVEM SER COMMITADOS

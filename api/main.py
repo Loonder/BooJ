@@ -45,7 +45,7 @@ def read_root():
     }
 
 
-@app.get("/api/jobs")
+@app.get("/api/v1/jobs")
 def get_jobs(
     skip: int = Query(0, ge=0),
     limit: int = Query(50, ge=1, le=100),
@@ -142,7 +142,7 @@ def get_jobs(
     }
 
 
-@app.get("/api/stats")
+@app.get("/api/v1/stats")
 def get_stats():
     """Estatísticas gerais"""
     
