@@ -167,6 +167,11 @@ scratch/
 *_backup.*
 *_old.*
 *.orig
+src_backup_*/
+*_backup_*/
+
+# Session files
+*.session
 
 # ========================================
 # 🎨 MÍDIA E ASSETS GRANDES
