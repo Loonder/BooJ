@@ -61,7 +61,7 @@ class Intelligence:
     def calculate_match_score(self, job: Dict) -> int:
         score = 0
         # Normaliza texto (Junta Título + Empresa + Descrição se tiver)
-        text = (job.get('titulo', '') + " " + job.get('empresa', '')).lower()
+        text = (str(job.get('titulo', '') or '') + " " + str(job.get('empresa', '') or '')).lower()
         
         # 0. Filtro de SPAM (Kill Switch)
         is_spam, _ = self.verify_spam(text)
@@ -100,11 +100,11 @@ class Intelligence:
     def is_duplicate(self, job: Dict, existing_jobs: List[Dict]) -> bool:
         # Mantive sua lógica Fuzzy que está perfeita
         if not existing_jobs: return False
-        current_sig = f"{job['titulo']} {job['empresa']}".lower()
+        current_sig = f"{str(job.get('titulo', '') or '')} {str(job.get('empresa', '') or '')}".lower()
 
         for existing in existing_jobs:
-            if job['link'] == existing['link']: return True
-            existing_sig = f"{existing['titulo']} {existing['empresa']}".lower()
+            if job.get('link') == existing.get('link'): return True
+            existing_sig = f"{str(existing.get('titulo', '') or '')} {str(existing.get('empresa', '') or '')}".lower()
             
             if fuzz:
                 ratio = fuzz.token_set_ratio(current_sig, existing_sig)

@@ -154,8 +154,8 @@ def remove_duplicates(jobs: List[Dict]) -> List[Dict]:
 
     for job in jobs:
         key = (
-            job.get("titulo", "").lower().strip(),
-            job.get("empresa", "").lower().strip()
+            str(job.get("titulo", "") or "").lower().strip(),
+            str(job.get("empresa", "") or "").lower().strip()
         )
         if key not in seen:
             seen.add(key)

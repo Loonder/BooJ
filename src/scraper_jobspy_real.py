@@ -18,6 +18,14 @@ class JobSpyRealScraper:
         # Removido glassdoor (muito lento e erros de location)
         self.sites = ["indeed", "linkedin", "google"]
     
+    def _safe_str(self, value, default: str = "") -> str:
+        """Converte valor para string, tratando NaN e None."""
+        if value is None:
+            return default
+        if pd.isna(value):
+            return default
+        return str(value).strip()
+    
     def fetch_jobs(self, terms: List[str] = None) -> List[Dict]:
         """Busca vagas em múltiplas plataformas - VOLUME MÁXIMO BRASIL."""
         all_jobs = []
@@ -132,13 +140,13 @@ class JobSpyRealScraper:
                                 }.get(site, '⚪')
                                 
                                 job_data = {
-                                    "titulo": f"{icon} {job.get('title', 'Vaga')}",
-                                    "empresa": job.get('company', 'Empresa'),
+                                    "titulo": f"{icon} {self._safe_str(job.get('title'), 'Vaga')}",
+                                    "empresa": self._safe_str(job.get('company'), 'Empresa'),
                                     "localizacao": self._parse_location(job),
-                                    "link": job.get('job_url', ''),
-                                    "data_publicacao": job.get('date_posted', datetime.now().strftime("%Y-%m-%d")),
+                                    "link": self._safe_str(job.get('job_url')),
+                                    "data_publicacao": self._safe_str(job.get('date_posted'), datetime.now().strftime("%Y-%m-%d")),
                                     "data_coleta": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                                    "plataforma": f"JobSpy ({site.title()})"
+                                    "plataforma": f"JobSpy ({self._safe_str(site, 'unknown').title()})"
                                 }
                                 
                                 if not job_data['link'] or 'None' in str(job_data['link']):
@@ -172,13 +180,13 @@ class JobSpyRealScraper:
                         try:
                             site = job.get('site', 'unknown')
                             job_data = {
-                                "titulo": f"🎓 {job.get('title', 'Estágio')}",
-                                "empresa": job.get('company', 'Empresa'),
+                                "titulo": f"🎓 {self._safe_str(job.get('title'), 'Estágio')}",
+                                "empresa": self._safe_str(job.get('company'), 'Empresa'),
                                 "localizacao": self._parse_location(job),
-                                "link": job.get('job_url', ''),
-                                "data_publicacao": job.get('date_posted', datetime.now().strftime("%Y-%m-%d")),
+                                "link": self._safe_str(job.get('job_url')),
+                                "data_publicacao": self._safe_str(job.get('date_posted'), datetime.now().strftime("%Y-%m-%d")),
                                 "data_coleta": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                                "plataforma": f"JobSpy ({site.title()}) Estágio"
+                                "plataforma": f"JobSpy ({self._safe_str(site, 'unknown').title()}) Estágio"
                             }
                             if job_data['link'] and 'None' not in str(job_data['link']):
                                 all_jobs.append(job_data)
@@ -205,13 +213,13 @@ class JobSpyRealScraper:
                         try:
                             site = job.get('site', 'unknown')
                             job_data = {
-                                "titulo": f"🏠 {job.get('title', 'Remoto')}",
-                                "empresa": job.get('company', 'Empresa'),
+                                "titulo": f"🏠 {self._safe_str(job.get('title'), 'Remoto')}",
+                                "empresa": self._safe_str(job.get('company'), 'Empresa'),
                                 "localizacao": "🏠 REMOTO",
-                                "link": job.get('job_url', ''),
-                                "data_publicacao": job.get('date_posted', datetime.now().strftime("%Y-%m-%d")),
+                                "link": self._safe_str(job.get('job_url')),
+                                "data_publicacao": self._safe_str(job.get('date_posted'), datetime.now().strftime("%Y-%m-%d")),
                                 "data_coleta": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                                "plataforma": f"JobSpy ({site.title()}) Remoto"
+                                "plataforma": f"JobSpy ({self._safe_str(site, 'unknown').title()}) Remoto"
                             }
                             if job_data['link'] and 'None' not in str(job_data['link']):
                                 all_jobs.append(job_data)
