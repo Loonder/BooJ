@@ -238,7 +238,7 @@ export default function Home() {
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3 group cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <div className="relative">
-              <img src="/boo.png" alt="Boo" className="w-8 h-8 object-contain group-hover:rotate-12 transition-transform" />
+              <img src="/boo_ghost_clean.png" alt="Boo" className="w-8 h-8 object-contain group-hover:rotate-12 transition-transform" />
             </div>
             <span className="font-bold text-xl tracking-tight">BooJ</span>
           </div>
@@ -264,7 +264,7 @@ export default function Home() {
           <div className="mb-8 relative animate-float">
             <div className="absolute -inset-10 bg-violet-500/20 blur-[100px] rounded-full animate-pulse"></div>
             <img
-              src="/boo.png"
+              src="/boo_ghost_clean.png"
               alt="Boo Giant"
               className="w-64 h-64 md:w-80 md:h-80 object-contain drop-shadow-[0_20px_50px_rgba(124,58,237,0.3)] transition-transform hover:scale-105 duration-700"
             />
