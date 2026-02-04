@@ -210,6 +210,22 @@ config.local.*
 local_settings.py
 
 # ========================================
+# 📱 CAPACITOR / MOBILE
+# ========================================
+android/
+ios/
+capacitor.config.ts
+capacitor.config.json
+
+# ========================================
+# 🛡️ SECURITY REPORTS
+# ========================================
+security_report.txt
+security_report.json
+audit_report.json
+lint_output.txt
+
+# ========================================
 # 📊 GRAFANA E PROMETHEUS (dados locais)
 # ========================================
 prometheus_data/

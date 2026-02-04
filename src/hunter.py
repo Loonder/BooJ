@@ -292,3 +292,6 @@ def main_loop():
         except Exception as e:
             logger.error(f"ERRO CRÍTICO NO LOOP: {e}")
             time.sleep(60)
+
+if __name__ == '__main__':
+    main_loop()

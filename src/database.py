@@ -61,11 +61,23 @@ class JobDatabase:
                     sent_telegram BOOLEAN DEFAULT 0,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
+
+                CREATE TABLE IF NOT EXISTS users (
+                    id TEXT PRIMARY KEY, 
+                    email TEXT UNIQUE, 
+                    name TEXT,
+                    image TEXT,
+                    instagram TEXT,
+                    xp INTEGER DEFAULT 0,
+                    level INTEGER DEFAULT 1,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
                 
                 CREATE INDEX IF NOT EXISTS idx_jobs_link ON jobs(link);
                 CREATE INDEX IF NOT EXISTS idx_jobs_titulo_empresa ON jobs(titulo, empresa);
                 CREATE INDEX IF NOT EXISTS idx_jobs_created_at ON jobs(created_at);
                 CREATE INDEX IF NOT EXISTS idx_jobs_sent ON jobs(sent_discord, sent_telegram);
+                CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
             """)
             conn.commit()
     

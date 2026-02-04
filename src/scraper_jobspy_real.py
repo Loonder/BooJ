@@ -14,7 +14,7 @@ class JobSpyRealScraper:
     
     def __init__(self):
         self.platform = "JobSpy"
-        self.sites = ["indeed", "linkedin", "zip_recruiter"]  # glassdoor opcional
+        self.sites = ["indeed", "linkedin", "zip_recruiter", "glassdoor"]
     
     def fetch_jobs(self, terms: List[str] = None) -> List[Dict]:
         """Busca vagas em múltiplas plataformas."""
@@ -30,59 +30,66 @@ class JobSpyRealScraper:
                 "trainee tecnologia"
             ]
             
+            locations = [
+                "São Paulo, SP", 
+                "Rio de Janeiro, RJ", 
+                "Remote, Brazil"
+            ]
+            
             for term in search_terms[:2]:  # Limitar a 2 para não demorar muito
-                try:
-                    print(f"  [*] Buscando '{term}'...")
+                for loc in locations:
+                    try:
+                        print(f"  [*] Buscando '{term}' em '{loc}'...")
+                        
+                        # JobSpy scrape
+                        jobs_df = scrape_jobs(
+                            site_name=self.sites,
+                            search_term=term,
+                            location=loc,
+                            results_wanted=15,
+                            hours_old=168,
+                            country_indeed='Brazil',
+                            linkedin_fetch_description=False
+                        )
                     
-                    # JobSpy scrape
-                    jobs_df = scrape_jobs(
-                        site_name=self.sites,
-                        search_term=term,
-                        location="Brasil",
-                        results_wanted=30,  # 30 por termo = ~60 total
-                        hours_old=168,  # 1 semana
-                        country_indeed='Brazil',
-                        linkedin_fetch_description=False  # Mais rápido sem description
-                    )
-                    
-                    if jobs_df is None or len(jobs_df) == 0:
-                        continue
-                    
-                    # Converter para nosso formato
-                    for _, job in jobs_df.iterrows():
-                        try:
-                            site = job.get('site', 'unknown')
-                            
-                            # Ícone por plataforma
-                            icon = {
-                                'linkedin': '🔵',
-                                'indeed': '🟢',
-                                'zip_recruiter': '🟣',
-                                'glassdoor': '🟡'
-                            }.get(site, '⚪')
-                            
-                            job_data = {
-                                "titulo": f"{icon} {job.get('title', 'Vaga')}",
-                                "empresa": job.get('company', 'Empresa'),
-                                "localizacao": self._parse_location(job),
-                                "link": job.get('job_url', ''),
-                                "data_publicacao": job.get('date_posted', datetime.now().strftime("%Y-%m-%d")),
-                                "data_coleta": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                                "plataforma": f"JobSpy ({site.title()})"
-                            }
-                            
-                            # Validação básica
-                            if not job_data['link'] or 'None' in job_data['link']:
-                                continue
-                            
-                            all_jobs.append(job_data)
-                            
-                        except Exception as e:
+                        if jobs_df is None or len(jobs_df) == 0:
                             continue
+                        
+                        # Converter para nosso formato
+                        for _, job in jobs_df.iterrows():
+                            try:
+                                site = job.get('site', 'unknown')
+                                
+                                # Ícone por plataforma
+                                icon = {
+                                    'linkedin': '🔵',
+                                    'indeed': '🟢',
+                                    'zip_recruiter': '🟣',
+                                    'glassdoor': '🟡'
+                                }.get(site, '⚪')
+                                
+                                job_data = {
+                                    "titulo": f"{icon} {job.get('title', 'Vaga')}",
+                                    "empresa": job.get('company', 'Empresa'),
+                                    "localizacao": self._parse_location(job),
+                                    "link": job.get('job_url', ''),
+                                    "data_publicacao": job.get('date_posted', datetime.now().strftime("%Y-%m-%d")),
+                                    "data_coleta": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                                    "plataforma": f"JobSpy ({site.title()})"
+                                }
+                                
+                                # Validação básica
+                                if not job_data['link'] or 'None' in job_data['link']:
+                                    continue
+                                
+                                all_jobs.append(job_data)
+                                
+                            except Exception as e:
+                                continue
                 
-                except Exception as e:
-                    print(f"  [!] Erro no termo '{term}': {e}")
-                    continue
+                    except Exception as e:
+                        print(f"  [!] Erro no termo '{term}' em '{loc}': {e}")
+                        continue
         
         except Exception as e:
             print(f"  [!] Erro geral JobSpy: {e}")
