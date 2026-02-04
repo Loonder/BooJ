@@ -39,3 +39,6 @@ tweepy>=4.14.0
 
 # Telegram Channel Scraping
 telethon>=1.34.0
+
+# Job Scraping (Indeed, LinkedIn, ZipRecruiter)
+python-jobspy>=1.1.0

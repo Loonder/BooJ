@@ -1,5 +1,5 @@
 """
-Simplified unit tests for brain module
+Unit tests for intelligence module (job enhancement and scoring)
 """
 import pytest
 import sys
@@ -9,20 +9,39 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 
-class TestBrainBasic:
-    """Basic test suite for AI brain module"""
+class TestIntelligenceBasic:
+    """Basic test suite for Intelligence module"""
     
-    def test_brain_import(self):
-        """Test brain module imports correctly"""
+    def test_intelligence_import(self):
+        """Test intelligence module imports correctly"""
         try:
-            from brain import enhance_job_data
-            assert enhance_job_data is not None
+            from intelligence import Intelligence
+            assert Intelligence is not None
         except ImportError as e:
-            pytest.fail(f"Failed to import brain: {e}")
+            pytest.fail(f"Failed to import intelligence: {e}")
     
     def test_enhance_job_exists(self):
-        """Test enhance_job_data function exists"""
-        from brain import enhance_job_data
+        """Test enhance_job_data method exists"""
+        from intelligence import Intelligence
         
-        assert enhance_job_data is not None
-        assert callable(enhance_job_data)
+        brain = Intelligence()
+        assert hasattr(brain, 'enhance_job_data')
+        assert callable(brain.enhance_job_data)
+    
+    def test_enhance_job_data_works(self):
+        """Test enhance_job_data adds score and tags"""
+        from intelligence import Intelligence
+        
+        brain = Intelligence()
+        job = {
+            'titulo': 'Estágio Python Developer',
+            'empresa': 'Tech Company',
+            'link': 'https://example.com/job/1'
+        }
+        
+        enhanced = brain.enhance_job_data(job)
+        
+        assert 'score' in enhanced
+        assert 'is_relevant' in enhanced
+        assert 'tags' in enhanced
+        assert isinstance(enhanced['score'], int)
