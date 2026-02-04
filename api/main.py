@@ -16,7 +16,7 @@ import logging
 # ========================================
 ALLOWED_ORIGINS = os.getenv(
     "ALLOWED_ORIGINS",
-    "http://localhost:3000,https://booj.vercel.app"
+    "http://localhost:3000,https://booj.vercel.app,https://boo.paulomoraes.cloud"
 ).split(",")
 
 DB_PATH = os.getenv(
