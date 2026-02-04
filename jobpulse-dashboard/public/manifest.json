@@ -1,0 +1,21 @@
+{
+    "name": "BooJ - Caçador de Vagas",
+    "short_name": "BooJ",
+    "description": "Encontre o melhor estágio em TI com a ajuda do Boo!",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#09090b",
+    "theme_color": "#7c3aed",
+    "icons": [
+        {
+            "src": "/boo.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/boo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
