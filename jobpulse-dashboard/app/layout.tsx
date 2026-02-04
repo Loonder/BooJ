@@ -22,8 +22,8 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   themeColor: "#7c3aed",
   icons: {
-    icon: "/boo.png",
-    apple: "/boo.png",
+    icon: "/boo_ghost_clean.png",
+    apple: "/boo_ghost_clean.png",
   },
   openGraph: {
     type: "website",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     siteName: "BooJ",
     images: [
       {
-        url: "/boo.png",
+        url: "/boo_ghost_clean.png",
         width: 512,
         height: 512,
         alt: "BooJ Mascot",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "BooJ 👻 | Caçador de Vagas",
     description: "Estágios TI, Vagas Junior e SDR. Tudo em um só lugar.",
-    images: ["/boo.png"],
+    images: ["/boo_ghost_clean.png"],
     creator: "@paulomoraesdev",
   },
   authors: [{ name: "Paulo Moraes", url: "https://paulomoraes.cloud" }],
