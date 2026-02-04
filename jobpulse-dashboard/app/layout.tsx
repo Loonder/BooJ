@@ -14,10 +14,41 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BooJ - Caçador de Vagas TI",
-  description: "Agregador inteligente de vagas para estágios em TI",
+  title: {
+    default: "BooJ 👻 | Caçador de Vagas TI & Vendas",
+    template: "%s | BooJ"
+  },
+  description: "Encontre seu Estágio em TI, vaga Junior ou oportunidade como SDR/Vendas sem esforço. O Boo varre a internet 24/7 para você não perder tempo. 🚀",
   manifest: "/manifest.json",
   themeColor: "#7c3aed",
+  icons: {
+    icon: "/boo.png",
+    apple: "/boo.png",
+  },
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    url: "https://boo.paulomoraes.cloud",
+    title: "BooJ 👻 | O Caçador de Vagas",
+    description: "Pare de procurar, deixe o fantasma trabalhar! Agregador de vagas para TI (Estágio/Jr) e Comercial (SDR/Vendas) com filtros inteligentes.",
+    siteName: "BooJ",
+    images: [
+      {
+        url: "/boo.png",
+        width: 512,
+        height: 512,
+        alt: "BooJ Mascot",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "BooJ 👻 | Caçador de Vagas",
+    description: "Estágios TI, Vagas Junior e SDR. Tudo em um só lugar.",
+    images: ["/boo.png"],
+    creator: "@paulomoraesdev",
+  },
+  authors: [{ name: "Paulo Moraes", url: "https://paulomoraes.cloud" }],
   viewport: "width=device-width, initial-scale=1, maximum-scale=1",
   appleWebApp: {
     capable: true,
