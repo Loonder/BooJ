@@ -117,12 +117,12 @@ def run_cycle():
         raw_jobs.extend(hn.fetch_jobs(SEARCH_TERMS))
     except Exception as e: logger.error(f"Erro HN: {e}")
 
-    # 7. Telegram (Canais BR de vagas)
-    try:
-        logger.info("💬 Caçando no Telegram...")
-        tg_scraper = TelegramScraper()
-        raw_jobs.extend(tg_scraper.fetch_jobs(SEARCH_TERMS))
-    except Exception as e: logger.error(f"Erro Telegram: {e}")
+    # 7. Telegram (Canais BR de vagas) - DESABILITADO (Pede código interativo, trava o bot)
+    # try:
+    #     logger.info("💬 Caçando no Telegram...")
+    #     tg_scraper = TelegramScraper()
+    #     raw_jobs.extend(tg_scraper.fetch_jobs(SEARCH_TERMS))
+    # except Exception as e: logger.error(f"Erro Telegram: {e}")
 
     # 8. Sites BR (Programathor)
     try:
