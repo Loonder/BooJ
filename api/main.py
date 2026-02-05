@@ -132,7 +132,7 @@ def read_root():
 @app.get("/api/v1/jobs")
 def get_jobs(
     skip: int = Query(0, ge=0, description="Number of jobs to skip"),
-    limit: int = Query(50, ge=1, le=100, description="Max jobs to return"),
+    limit: int = Query(50, ge=1, le=500, description="Max jobs to return"),
     platform: Optional[str] = Query(None, description="Filter by platform (e.g., 'LinkedIn')"),
     search: Optional[str] = Query(None, description="Search in title or company"),
     remote_only: bool = Query(False, description="Only remote jobs")

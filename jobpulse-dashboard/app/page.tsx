@@ -82,7 +82,7 @@ export default function Home() {
   const fetchJobs = async () => {
     setLoading(true)
     try {
-      const response = await fetch(`${API_URL}/api/v1/jobs?limit=100`)
+      const response = await fetch(`${API_URL}/api/v1/jobs?limit=500`)
       const data = await response.json()
       setJobs(data.jobs || [])
       // Calculate average score from jobs
@@ -131,18 +131,10 @@ export default function Home() {
         /🏠/i.test(job.titulo) ||
         /remoto/i.test(job.titulo)
 
-      // Location filter - HIDE remote by default unless explicitly selected
-      const remotoSelected = selectedLocations.includes("remoto")
-
-      // If no location filter selected, hide remote jobs
-      if (selectedLocations.length === 0 && isRemote) {
-        return false  // Hide remote jobs by default
-      }
-
-      // If locations are selected, check if matches
+      // Location filter - Show ALL jobs by default, filter only if location selected
       const matchesLocation = selectedLocations.length === 0 ||
         selectedLocations.some(locId => {
-          if (locId === "remoto") return isRemote  // Show remote if explicitly selected
+          if (locId === "remoto") return isRemote
           const location = LOCATION_FILTERS.find(l => l.id === locId)
           if (!location) return false
           const regex = new RegExp(location.pattern, 'i')
