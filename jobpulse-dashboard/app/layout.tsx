@@ -24,6 +24,13 @@ export const metadata: Metadata = {
   icons: {
     icon: "/boo_ghost_clean.png",
     apple: "/boo_ghost_clean.png",
+    icon: [
+      { url: "/favicon.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: [
+      { url: "/favicon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
   openGraph: {
     type: "website",

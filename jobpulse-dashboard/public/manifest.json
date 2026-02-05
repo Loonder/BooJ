@@ -1,21 +1,28 @@
 {
     "name": "BooJ - Caçador de Vagas",
     "short_name": "BooJ",
-    "description": "Encontre o melhor estágio em TI com a ajuda do Boo!",
+    "description": "Encontre estágios TI, vagas Junior e oportunidades em Vendas/SDR. O Boo varre a internet 24/7!",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#09090b",
     "theme_color": "#7c3aed",
+    "orientation": "portrait-primary",
+    "categories": [
+        "business",
+        "productivity"
+    ],
     "icons": [
         {
-            "src": "/boo_ghost_clean.png",
-            "sizes": "192x192",
-            "type": "image/png"
+            "src": "/favicon.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
         },
         {
-            "src": "/boo_ghost_clean.png",
-            "sizes": "512x512",
-            "type": "image/png"
+            "src": "/favicon.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
         }
     ]
 }
