@@ -59,6 +59,26 @@ export default function Home() {
     fetchStats()
   }, [])
 
+  // Helper to clean platform names (extract base platform)
+  const cleanPlatformName = (plataforma: string): string => {
+    // Match patterns like "JobSpy (Indeed) Remoto" → "Indeed"
+    const match = plataforma.match(/JobSpy\s*\(([^)]+)\)/)
+    if (match) return match[1].trim()
+    // Remove any remaining parentheses
+    return plataforma.replace(/[()]/g, '').trim()
+  }
+
+  // Deduplicate jobs by title + company (case insensitive)
+  const deduplicateJobs = (jobList: Job[]): Job[] => {
+    const seen = new Set<string>()
+    return jobList.filter(job => {
+      const key = `${job.titulo.toLowerCase().trim()}|${job.empresa.toLowerCase().trim()}`
+      if (seen.has(key)) return false
+      seen.add(key)
+      return true
+    })
+  }
+
   const fetchJobs = async () => {
     setLoading(true)
     try {
@@ -93,10 +113,10 @@ export default function Home() {
     }
   }
 
-  // Get unique platforms
+  // Get unique platforms (clean names)
   const platforms = Array.from(new Set(
-    jobs.map(j => j.plataforma.replace(/JobSpy\s*\(/i, '').replace(/\)$/, '').trim())
-  ))
+    jobs.map(j => cleanPlatformName(j.plataforma))
+  )).filter(p => p)
 
   // Filter and sort jobs
   const filteredAndSortedJobs = jobs
@@ -138,10 +158,10 @@ export default function Home() {
           return regex.test(job.titulo) || regex.test(job.descricao || "")
         })
 
-      // Platform filter
-      const cleanPlatform = job.plataforma.replace(/JobSpy\s*\(/i, '').replace(/\)$/, '').trim()
+      // Platform filter (use cleaned name)
+      const jobPlatformClean = cleanPlatformName(job.plataforma)
       const matchesPlatform = selectedPlatforms.length === 0 ||
-        selectedPlatforms.includes(cleanPlatform)
+        selectedPlatforms.includes(jobPlatformClean)
 
       return matchesSearch && matchesLocation && matchesPlatform && matchesCategory
     })
@@ -525,11 +545,26 @@ export default function Home() {
           </div>
         ) : (
           <div className="animate-in fade-in duration-500">
-            <JobList
-              jobs={filteredAndSortedJobs}
-              onBookmark={toggleBookmark}
-              bookmarkedIds={bookmarkedIds}
-            />
+            {deduplicateJobs(filteredAndSortedJobs).length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-20 text-center">
+                <div className="relative mb-6">
+                  <img src="/boo_ghost_clean.png" alt="Boo triste" className="w-32 h-32 object-contain opacity-50 grayscale" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-2">Ops, nada por aqui</h3>
+                <p className="text-muted-foreground text-sm max-w-md mb-4">
+                  Nenhuma vaga encontrada com esses filtros. Tente limpar a busca!
+                </p>
+                <Button variant="outline" onClick={clearFilters} className="gap-2">
+                  <X className="w-4 h-4" /> Limpar Filtros
+                </Button>
+              </div>
+            ) : (
+              <JobList
+                jobs={deduplicateJobs(filteredAndSortedJobs)}
+                onBookmark={toggleBookmark}
+                bookmarkedIds={bookmarkedIds}
+              />
+            )}
           </div>
         )}
       </main>

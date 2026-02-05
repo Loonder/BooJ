@@ -42,6 +42,15 @@ SEARCH_TERMS = [
     "estágio product owner",
     "estágio ux ui",
     "estágio design",
+
+    # Vendas & Comercial (SDR/BDR)
+    "estágio vendas",
+    "estágio comercial",
+    "estágio sdr",
+    "estágio bdr",
+    "estágio pré-vendas",
+    "estágio inside sales",
+    "estágio customer success",
 ]
 
 import os
