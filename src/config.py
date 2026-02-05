@@ -43,7 +43,7 @@ SEARCH_TERMS = [
     "estágio ux ui",
     "estágio design",
 
-    # Vendas & Comercial (SDR/BDR)
+    # Vendas & Comercial (SDR/BDR) - Estágio
     "estágio vendas",
     "estágio comercial",
     "estágio sdr",
@@ -51,6 +51,53 @@ SEARCH_TERMS = [
     "estágio pré-vendas",
     "estágio inside sales",
     "estágio customer success",
+
+    # ========================================
+    # 👶 VAGAS JUNIOR (sem estágio)
+    # ========================================
+    "junior desenvolvedor",
+    "junior programador",
+    "junior software",
+    "junior dev",
+    "junior frontend",
+    "junior backend",
+    "junior fullstack",
+    "junior python",
+    "junior java",
+    "junior nodejs",
+    "junior react",
+    "junior data",
+    "junior suporte",
+    "junior infraestrutura",
+    "junior ti",
+    "junior tech",
+    
+    # ========================================
+    # 💰 VENDAS / SDR / BDR (sem estágio)
+    # ========================================
+    "sdr",
+    "bdr",
+    "sales development",
+    "inside sales",
+    "pre-vendas",
+    "pré-vendas",
+    "closer",
+    "vendedor interno",
+    "executivo de vendas junior",
+    "representante comercial",
+    "customer success",
+    "cs junior",
+    "account executive junior",
+    
+    # ========================================
+    # 📊 ANALISTA JUNIOR / TRAINEE
+    # ========================================
+    "analista junior",
+    "analista jr",
+    "trainee ti",
+    "trainee tecnologia",
+    "trainee desenvolvimento",
+    "trainee dados",
 ]
 
 import os
