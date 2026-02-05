@@ -32,8 +32,15 @@ class Intelligence:
         }
 
         # Anti-patterns (Agora divididos por severidade)
+        # Anti-patterns
         self.block_list = ["sênior", "senior", "specialist", "especialista", "manager", "gerente", "coordenador"]
-        self.penalty_list = ["pleno", "rh", "marketing", "vendas", "comercial"]
+        self.penalty_list = ["pleno", "rh"] # Vendas removido da penalidade
+
+        # Adicionar Sales como categoria de interesse
+        self.weights["sales"] = {
+            "keywords": ["sdr", "bdr", "vendas", "comercial", "closer", "inside sales", "customer success"],
+            "points": 20 # Pontuação alta para Vendas
+        }
 
     def verify_spam(self, text):
         """Verifica se a vaga tem cara de spam/golpe/curso/candidato."""
@@ -74,7 +81,7 @@ class Intelligence:
         # 2. Penalidade Soft (Pleno/Vendas) - Só tira pontos, mas deixa passar se for muito boa
         for penalty in self.penalty_list:
             if penalty in text:
-                score -= 50 # Penalidade pesada
+                score -= 5 # Penalidade leve (antes era -50)
 
         # 3. Cálculo de Pesos (A Mágica)
         # Verifica Dream Jobs (Cyber)
