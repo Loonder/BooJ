@@ -22,13 +22,8 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   themeColor: "#7c3aed",
   icons: {
-    icon: [
-      { url: "/boo_ghost_clean.png", sizes: "32x32", type: "image/png" },
-      { url: "/boo_ghost_clean.png", sizes: "192x192", type: "image/png" },
-    ],
-    apple: [
-      { url: "/boo_ghost_clean.png", sizes: "180x180", type: "image/png" },
-    ],
+    icon: "/boo_ghost_clean.png",
+    apple: "/boo_ghost_clean.png",
   },
   openGraph: {
     type: "website",
