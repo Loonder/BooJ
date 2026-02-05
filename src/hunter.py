@@ -159,12 +159,12 @@ def run_cycle():
         raw_jobs.extend(remotive.fetch_jobs(SEARCH_TERMS))
     except Exception as e: logger.error(f"Erro Remotive: {e}")
 
-    # 13. Telegram Channels (Tempo Real)
-    try:
-        logger.info("📱 Caçando no Telegram (Canais BR)...")
-        telegram_scraper = TelegramJobScraper()
-        raw_jobs.extend(telegram_scraper.fetch_jobs(SEARCH_TERMS))
-    except Exception as e: logger.error(f"Erro Telegram: {e}")
+    # 13. Telegram Channels (Tempo Real) - DESABILITADO (Pede código interativo)
+    # try:
+    #     logger.info("📱 Caçando no Telegram (Canais BR)...")
+    #     telegram_scraper = TelegramJobScraper()
+    #     raw_jobs.extend(telegram_scraper.fetch_jobs(SEARCH_TERMS))
+    # except Exception as e: logger.error(f"Erro Telegram: {e}")
     
     # 14. Catho (Brasil - Qualidade)
     try:
