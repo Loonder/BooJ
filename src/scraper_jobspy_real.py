@@ -107,7 +107,7 @@ class JobSpyRealScraper:
             # Randomizar e aumentar range de busca para garantir variedade (Junior, Sdr, Estágio)
             import random
             random.shuffle(search_terms)
-            terms_to_use = search_terms[:5] # Reduzido para 5 para ciclos mais rápidos e evitar travar
+            terms_to_use = search_terms[:20] # Pega 20 termos aleatórios por execução
             locs_to_use = locations[:4] # Reduz locations para focar nos termos
             
             for term in terms_to_use:

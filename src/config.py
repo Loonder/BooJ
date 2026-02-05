@@ -176,8 +176,8 @@ GOLD_KEYWORDS = [
 ]
 
 # Intervalo de loop (minutos)
-HUNTER_SLEEP_MIN = 5
-HUNTER_SLEEP_MAX = 10
+HUNTER_SLEEP_MIN = 15
+HUNTER_SLEEP_MAX = 30
 
 # Persistência
 SENT_JOBS_FILE = "data/sent_jobs.txt"
