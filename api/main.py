@@ -241,7 +241,8 @@ def get_stats():
     
     Returns:
         - total_jobs: Total number of jobs
-        - jobs_today: Jobs posted today
+        - jobs_last_24h: Jobs collected in last 24 hours
+        - jobs_last_week: Jobs collected in last 7 days
         - top_companies: Top 5 companies
         - top_platforms: Top 5 platforms
     """
@@ -253,10 +254,19 @@ def get_stats():
         cursor.execute("SELECT COUNT(*) as total FROM jobs")
         total = cursor.fetchone()["total"]
         
-        # Jobs today
-        today = datetime.now().strftime("%Y-%m-%d")
-        cursor.execute("SELECT COUNT(*) as today FROM jobs WHERE data_publicacao = ?", (today,))
-        jobs_today = cursor.fetchone()["today"]
+        # Jobs collected in last 24 hours (using created_at)
+        cursor.execute("""
+            SELECT COUNT(*) as count FROM jobs 
+            WHERE created_at >= datetime('now', '-1 day')
+        """)
+        jobs_last_24h = cursor.fetchone()["count"]
+        
+        # Jobs collected in last 7 days
+        cursor.execute("""
+            SELECT COUNT(*) as count FROM jobs 
+            WHERE created_at >= datetime('now', '-7 days')
+        """)
+        jobs_last_week = cursor.fetchone()["count"]
         
         # Top companies
         cursor.execute("""
@@ -280,11 +290,13 @@ def get_stats():
         
         conn.close()
         
-        logger.info(f"Stats fetched: {total} total jobs, {jobs_today} today")
+        logger.info(f"Stats fetched: {total} total, {jobs_last_24h} last 24h, {jobs_last_week} last week")
         
         return {
             "total_jobs": total,
-            "jobs_today": jobs_today,
+            "jobs_today": jobs_last_24h,  # Keep old name for frontend compatibility
+            "jobs_last_24h": jobs_last_24h,
+            "jobs_last_week": jobs_last_week,
             "top_companies": top_companies,
             "top_platforms": top_platforms
         }
