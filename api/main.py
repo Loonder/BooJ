@@ -161,6 +161,7 @@ def get_jobs(
                 plataforma,
                 data_publicacao,
                 data_coleta,
+                created_at,
                 score
             FROM jobs
             WHERE 1=1
@@ -179,8 +180,8 @@ def get_jobs(
         if remote_only:
             query += " AND (localizacao LIKE '%remoto%' OR localizacao LIKE '%REMOTO%' OR localizacao LIKE '%🏠%')"
         
-        # Order by score and date
-        query += " ORDER BY score DESC, data_publicacao DESC"
+        # Order by newly collected first, then score
+        query += " ORDER BY created_at DESC, score DESC"
         
         # Pagination
         query += f" LIMIT {limit} OFFSET {skip}"
