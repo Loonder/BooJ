@@ -35,6 +35,8 @@ const CATEGORY_FILTERS = [
   { id: "dev", label: "💻 Dev", pattern: "dev|desenvolvedor|programador|front|back|full|software" },
   { id: "dados", label: "📊 Dados", pattern: "dados|data|analytics|bi|ciencia" },
   { id: "suporte", label: "🛠️ Suporte", pattern: "suporte|help desk|infra|tech support" },
+  { id: "seguranca", label: "🔐 Segurança", pattern: "cyber|security|segurança|pentest|hacker|defensive|offensive|red team|blue team" },
+  { id: "analista", label: "📈 Analista", pattern: "analista|analyst" },
 ]
 
 export default function Home() {
