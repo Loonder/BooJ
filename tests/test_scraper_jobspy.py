@@ -21,7 +21,7 @@ class TestJobSpyScraper:
         scraper = JobSpyRealScraper()
         
         assert scraper.platform == "JobSpy"
-        assert scraper.sites == ["indeed", "linkedin", "zip_recruiter"]
+        assert scraper.sites == ["indeed", "linkedin", "google"]
     
     def test_parse_location_with_dict(self):
         """Test location parsing with dictionary"""
@@ -51,7 +51,7 @@ class TestJobSpyScraper:
         """Test location parsing for remote jobs"""
         scraper = JobSpyRealScraper()
         
-        job = {'isRemote': True}
+        job = {'is_remote': True}
         
         location = scraper._parse_location(job)
         assert location == "🏠 REMOTO"
