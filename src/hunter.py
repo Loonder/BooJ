@@ -228,8 +228,19 @@ def main_loop():
             # 3. Processamento Inteligente (Score + Dedupe via SQL)
             processed_jobs = []
             logger.info("🧠 Aplicando Inteligência (Match 0-100)...")
+
+            # BLACKLIST BACKEND
+            BLACKLIST = [
+                "pedreiro", "servente", "motorista", "limpeza", "vigilante", "porteiro", "recepcionista",
+                "vendedor de loja", "atendente", "frentista", "operador de caixa", "segurança patrimonial",
+                "advogado", "juridico", "direito", "financeiro", "contabil", "facilities", "serviços gerais"
+            ]
             
             for job in recent_jobs:
+                # 0. Filtro de Blacklist (Extermínio Imediato)
+                if any(bad in job['titulo'].lower() for bad in BLACKLIST):
+                    continue
+
                 # Deduplicação via SQLite (O(1) lookup, não carrega tudo na RAM!)
                 if db.is_fuzzy_duplicate(job):
                     continue

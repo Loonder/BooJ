@@ -82,9 +82,8 @@ SEARCH_TERMS = [
     "pre-vendas",
     "pré-vendas",
     "closer",
-    "vendedor interno",
-    "executivo de vendas junior",
-    "representante comercial",
+    # "vendedor interno",  (Removido por atrair varejo)
+    # "representante comercial", (Removido por atrair vendas externas não-tech)
     "customer success",
     "cs junior",
     "account executive junior",
