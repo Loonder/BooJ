@@ -28,13 +28,25 @@ const LOCATION_FILTERS = [
   { id: "brasil", label: "Brasil", icon: MapPin, pattern: "Brasil|Brazil|BR" },
 ]
 
+// BLACKLIST: Termos que, se presentes no título, escondem a vaga automaticamente (salvo se usuário buscar explicitamente)
+const BLACKLIST_TERMS = [
+  "pedreiro", "servente", "motorista", "limpeza", "vigilante", "porteiro", "recepcionista",
+  "vendedor de loja", "atendente", "frentista", "operador de caixa", "segurança patrimonial",
+  "advogado", "juridico", "direito", "financeiro", "contabil", "facilities", "serviços gerais"
+]
+
 // Filtros de CATEGORIA (Novos)
 const CATEGORY_FILTERS = [
   { id: "estagio", label: "🎓 Estágio", pattern: "estagio|estágio|intern|trainée|trainee" },
   { id: "junior", label: "👶 Junior", pattern: "junior|jr|iniciante|assoc" },
   { id: "vendas", label: "💰 Vendas/SDR", pattern: "sdr|vendas|sales|comercial|closer|bdr|account exec" },
-  { id: "dev", label: "💻 Dev", pattern: "dev|desenvolvedor|programador|front|back|full|software" },
+  { id: "dev", label: "💻 Dev", pattern: "dev|desenvolvedor|programador|front|back|full|software|engenheiro" },
   { id: "dados", label: "📊 Dados", pattern: "dados|data|analytics|bi|ciencia" },
+  { id: "design", label: "🎨 Design/UX", pattern: "design|ux|ui|designer|visual|criativo" },
+  { id: "produto", label: "🚀 Produto", pattern: "produto|product|po|pm|agile|scrum" },
+  { id: "qa", label: "🧪 QA/Testes", pattern: "qa|teste|quality|test|tester" },
+  { id: "mobile", label: "📱 Mobile", pattern: "mobile|ios|android|flutter|react native|kotlin|swift" },
+  { id: "devops", label: "☁️ DevOps", pattern: "devops|cloud|aws|azure|docker|kubernetes|sre|infra" },
   { id: "suporte", label: "🛠️ Suporte", pattern: "suporte|help desk|infra|tech support" },
   { id: "seguranca", label: "🔐 Segurança", pattern: "cyber|security|segurança|pentest|hacker|defensive|offensive|red team|blue team" },
   { id: "analista", label: "📈 Analista", pattern: "analista|analyst" },
@@ -124,6 +136,11 @@ export default function Home() {
   // Filter and sort jobs
   const filteredAndSortedJobs = jobs
     .filter(job => {
+      // 🚫 BLACKLIST: Remove vagas irrelevantes (pedreiro, motorista, etc)
+      // Só mostra se o usuário DIGITAR explicitamente algo na busca que coincida (ex: quer ver se tem pedreiro)
+      const isBlacklisted = BLACKLIST_TERMS.some(term => job.titulo.toLowerCase().includes(term))
+      if (isBlacklisted && searchTerm === "") return false
+
       // Search filter
       const matchesSearch = searchTerm === "" ||
         job.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
