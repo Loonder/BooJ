@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { PWAInstallButton } from "@/components/pwa-install-button"
 import {
   Search, Filter, SortAsc, X, MapPin, Globe, Flame, Calendar, Building2,
   Github, Linkedin, Coffee, Copy, Check, TrendingUp, ExternalLink
@@ -265,6 +266,7 @@ export default function Home() {
                 <span className="text-xs">novas</span>
               </span>
             </div>
+            <PWAInstallButton />
             <ThemeToggle />
           </div>
         </div>
@@ -303,10 +305,10 @@ export default function Home() {
             </Button>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Info Cards Section */}
-      <section className="container mx-auto px-4 pb-12">
+      < section className="container mx-auto px-4 pb-12" >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Developer Card */}
           <Card className="bg-card/50 backdrop-blur border-border/50 hover:border-violet-500/30 transition-colors group">
@@ -399,13 +401,13 @@ export default function Home() {
             </CardContent>
           </Card>
         </div>
-      </section>
+      </section >
 
       {/* Main Jobs Section */}
-      <main className="container mx-auto px-4 pb-20 space-y-8" id="jobs">
+      < main className="container mx-auto px-4 pb-20 space-y-8" id="jobs" >
 
         {/* Search & Filters Bar */}
-        <div className="sticky top-20 z-40 bg-background/90 backdrop-blur-md rounded-xl border border-border/50 shadow-sm p-2 md:p-4 transition-all duration-300">
+        < div className="sticky top-20 z-40 bg-background/90 backdrop-blur-md rounded-xl border border-border/50 shadow-sm p-2 md:p-4 transition-all duration-300" >
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
             <div className="w-full md:w-auto flex-1 relative group">
               <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground group-focus-within:text-violet-500 transition-colors" />
@@ -448,123 +450,127 @@ export default function Home() {
           </div>
 
           {/* Filters Panel (Collapsible) */}
-          {showFilters && (
-            <div className="mt-4 pt-4 border-t border-border/50 animate-in fade-in slide-in-from-top-2 duration-200">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="font-semibold text-sm flex items-center gap-2 text-foreground">
-                  <Filter className="h-4 w-4 text-violet-500" /> Filtros Ativos
-                </h3>
-                <Button variant="ghost" size="sm" onClick={clearFilters} className="h-7 text-xs text-muted-foreground hover:text-destructive">
-                  Limpar tudo
-                </Button>
-              </div>
+          {
+            showFilters && (
+              <div className="mt-4 pt-4 border-t border-border/50 animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="font-semibold text-sm flex items-center gap-2 text-foreground">
+                    <Filter className="h-4 w-4 text-violet-500" /> Filtros Ativos
+                  </h3>
+                  <Button variant="ghost" size="sm" onClick={clearFilters} className="h-7 text-xs text-muted-foreground hover:text-destructive">
+                    Limpar tudo
+                  </Button>
+                </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="text-xs font-semibold mb-2 text-muted-foreground uppercase tracking-wider">Localização</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {LOCATION_FILTERS.map(loc => {
-                      const Icon = loc.icon
-                      return (
-                        <div
-                          key={loc.id}
-                          className={`
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="text-xs font-semibold mb-2 text-muted-foreground uppercase tracking-wider">Localização</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {LOCATION_FILTERS.map(loc => {
+                        const Icon = loc.icon
+                        return (
+                          <div
+                            key={loc.id}
+                            className={`
                                  cursor-pointer rounded-full border px-3 py-1.5 flex items-center gap-2 transition-all duration-200 text-sm
                                  ${selectedLocations.includes(loc.id)
-                              ? 'bg-violet-500/10 border-violet-500/50 text-violet-600 dark:text-violet-300 font-medium'
-                              : 'hover:bg-muted border-border bg-background text-muted-foreground'}
+                                ? 'bg-violet-500/10 border-violet-500/50 text-violet-600 dark:text-violet-300 font-medium'
+                                : 'hover:bg-muted border-border bg-background text-muted-foreground'}
                                `}
-                          onClick={() => toggleLocation(loc.id)}
-                        >
-                          <Icon className="w-3.5 h-3.5" />
-                          <span>{loc.label}</span>
-                        </div>
-                      )
-                    })}
+                            onClick={() => toggleLocation(loc.id)}
+                          >
+                            <Icon className="w-3.5 h-3.5" />
+                            <span>{loc.label}</span>
+                          </div>
+                        )
+                      })}
+                    </div>
                   </div>
-                </div>
 
-                <div>
-                  <h4 className="text-xs font-semibold mb-2 text-muted-foreground uppercase tracking-wider">Categoria</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {CATEGORY_FILTERS.map(cat => (
-                      <Badge
-                        key={cat.id}
-                        variant={selectedCategories.includes(cat.id) ? "default" : "outline"}
-                        className={`
+                  <div>
+                    <h4 className="text-xs font-semibold mb-2 text-muted-foreground uppercase tracking-wider">Categoria</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {CATEGORY_FILTERS.map(cat => (
+                        <Badge
+                          key={cat.id}
+                          variant={selectedCategories.includes(cat.id) ? "default" : "outline"}
+                          className={`
                                    cursor-pointer px-3 py-1.5 text-sm transition-all font-normal
                                    ${selectedCategories.includes(cat.id)
-                            ? 'bg-violet-600 hover:bg-violet-700 text-white'
-                            : 'hover:border-violet-400 text-muted-foreground bg-background'}
+                              ? 'bg-violet-600 hover:bg-violet-700 text-white'
+                              : 'hover:border-violet-400 text-muted-foreground bg-background'}
                                  `}
-                        onClick={() => toggleCategory(cat.id)}
-                      >
-                        {cat.label}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-
-                {platforms.length > 0 && (
-                  <div>
-                    <h4 className="text-xs font-semibold mb-2 text-muted-foreground uppercase tracking-wider">Plataformas</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {platforms.map(platform => (
-                        <Badge
-                          key={platform}
-                          variant={selectedPlatforms.includes(platform) ? "default" : "outline"}
-                          className={`
-                                     cursor-pointer px-3 py-1.5 text-sm transition-all font-normal
-                                     ${selectedPlatforms.includes(platform) ? 'bg-violet-600 hover:bg-violet-700 text-white' : 'hover:border-violet-400 text-muted-foreground bg-background'}
-                                   `}
-                          onClick={() => togglePlatform(platform)}
+                          onClick={() => toggleCategory(cat.id)}
                         >
-                          {platform}
+                          {cat.label}
                         </Badge>
                       ))}
                     </div>
                   </div>
-                )}
+
+                  {platforms.length > 0 && (
+                    <div>
+                      <h4 className="text-xs font-semibold mb-2 text-muted-foreground uppercase tracking-wider">Plataformas</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {platforms.map(platform => (
+                          <Badge
+                            key={platform}
+                            variant={selectedPlatforms.includes(platform) ? "default" : "outline"}
+                            className={`
+                                     cursor-pointer px-3 py-1.5 text-sm transition-all font-normal
+                                     ${selectedPlatforms.includes(platform) ? 'bg-violet-600 hover:bg-violet-700 text-white' : 'hover:border-violet-400 text-muted-foreground bg-background'}
+                                   `}
+                            onClick={() => togglePlatform(platform)}
+                          >
+                            {platform}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          )}
-        </div>
+            )
+          }
+        </div >
 
         {/* Content */}
-        {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="h-64 rounded-xl border bg-card/50 animate-pulse" />
-            ))}
-          </div>
-        ) : (
-          <div className="animate-in fade-in duration-500">
-            {deduplicateJobs(filteredAndSortedJobs).length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-20 text-center">
-                <div className="relative mb-6">
-                  <img src="/boo_ghost_clean.png" alt="Boo triste" className="w-32 h-32 object-contain opacity-50 grayscale" />
+        {
+          loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="h-64 rounded-xl border bg-card/50 animate-pulse" />
+              ))}
+            </div>
+          ) : (
+            <div className="animate-in fade-in duration-500">
+              {deduplicateJobs(filteredAndSortedJobs).length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-20 text-center">
+                  <div className="relative mb-6">
+                    <img src="/boo_ghost_clean.png" alt="Boo triste" className="w-32 h-32 object-contain opacity-50 grayscale" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">Ops, nada por aqui</h3>
+                  <p className="text-muted-foreground text-sm max-w-md mb-4">
+                    Nenhuma vaga encontrada com esses filtros. Tente limpar a busca!
+                  </p>
+                  <Button variant="outline" onClick={clearFilters} className="gap-2">
+                    <X className="w-4 h-4" /> Limpar Filtros
+                  </Button>
                 </div>
-                <h3 className="text-xl font-semibold text-foreground mb-2">Ops, nada por aqui</h3>
-                <p className="text-muted-foreground text-sm max-w-md mb-4">
-                  Nenhuma vaga encontrada com esses filtros. Tente limpar a busca!
-                </p>
-                <Button variant="outline" onClick={clearFilters} className="gap-2">
-                  <X className="w-4 h-4" /> Limpar Filtros
-                </Button>
-              </div>
-            ) : (
-              <JobList
-                jobs={deduplicateJobs(filteredAndSortedJobs)}
-                onBookmark={toggleBookmark}
-                bookmarkedIds={bookmarkedIds}
-              />
-            )}
-          </div>
-        )}
-      </main>
+              ) : (
+                <JobList
+                  jobs={deduplicateJobs(filteredAndSortedJobs)}
+                  onBookmark={toggleBookmark}
+                  bookmarkedIds={bookmarkedIds}
+                />
+              )}
+            </div>
+          )
+        }
+      </main >
 
       {/* Footer */}
-      <footer className="border-t border-border/40 bg-background/50 backdrop-blur-lg mt-20">
+      < footer className="border-t border-border/40 bg-background/50 backdrop-blur-lg mt-20" >
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-2">
@@ -588,7 +594,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </footer>
-    </div>
+      </footer >
+    </div >
   )
 }
