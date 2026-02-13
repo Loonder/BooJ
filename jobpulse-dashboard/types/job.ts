@@ -9,4 +9,5 @@ export interface Job {
     data_coleta?: string
     score?: number
     descricao?: string
+    salario?: string | null
 }
