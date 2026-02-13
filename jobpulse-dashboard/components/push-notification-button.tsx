@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Bell, BellOff, Loader2 } from "lucide-react"
 import { useToast } from "./ui/use-toast"
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001"
+const API_URL = process.env.NEXT_PUBLIC_API_URL || ""
 const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
 
 function urlBase64ToUint8Array(base64String: string) {
