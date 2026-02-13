@@ -119,6 +119,12 @@ export function JobCard({ job, onBookmark, isBookmarked = false }: JobCardProps)
                         <CalendarDays className="h-3 w-3" />
                         {formatDate(job.data_publicacao)}
                     </Badge>
+
+                    {job.salario && (
+                        <Badge variant="secondary" className="bg-emerald-50 text-emerald-600 border-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-400 dark:border-emerald-900">
+                            💰 {job.salario}
+                        </Badge>
+                    )}
                 </div>
             </CardContent>
 
@@ -158,10 +164,51 @@ export function JobCard({ job, onBookmark, isBookmarked = false }: JobCardProps)
                             border-border hover:bg-pink-50 hover:text-pink-500 hover:border-pink-500/50 transition-all dark:hover:bg-pink-950/30
                             ${isBookmarked ? 'text-pink-600 border-pink-500/50 bg-pink-50 dark:bg-pink-900/20 dark:text-pink-400' : 'text-muted-foreground'}
                         `}
+                        title="Salvar"
                     >
                         <Bookmark className={`h-4 w-4 ${isBookmarked ? 'fill-current' : ''}`} />
                     </Button>
                 )}
+
+                <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                        const saved = localStorage.getItem("kanban-jobs")
+                        const currentJobs = saved ? JSON.parse(saved) : []
+
+                        // Check if already in kanban
+                        if (currentJobs.some((j: any) => j.id === String(job.id))) {
+                            alert("Vaga já está no seu Kanban!")
+                            return
+                        }
+
+                        const newJob = {
+                            id: String(job.id),
+                            title: job.titulo,
+                            company: job.empresa,
+                            status: "Interesse",
+                            dateAdded: new Date().toISOString(),
+                            link: job.link
+                        }
+
+                        localStorage.setItem("kanban-jobs", JSON.stringify([...currentJobs, newJob]))
+
+                        // Small animation/feedback could be added here
+                        // For now simple alert
+                        const shouldGo = confirm("Vaga adicionada ao Kanban (Coluna: Interesse)! 🚀\n\nDeseja ir para o Kanban agora?")
+                        if (shouldGo) {
+                            window.location.href = "/tracker"
+                        }
+                    }}
+                    className="border-border hover:bg-emerald-50 hover:text-emerald-600 hover:border-emerald-500/50 transition-all dark:hover:bg-emerald-950/30 text-muted-foreground"
+                    title="Adicionar ao Kanban"
+                >
+                    <div className="flex items-center">
+                        <span className="text-lg leading-none mr-0.5">+</span>
+                        <span className="text-xs font-bold">Kanban</span>
+                    </div>
+                </Button>
             </CardFooter>
         </Card>
     )
