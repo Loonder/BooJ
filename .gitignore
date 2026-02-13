@@ -191,6 +191,7 @@ src_backup_*/
 # ========================================
 # 🖥️ OS-SPECIFIC SCRIPTS
 # ========================================
+!start_jobpulse.bat
 *.bat
 *.ps1
 setup_*.sh
@@ -263,3 +264,6 @@ grafana_data/
 # !.env.example
 # !requirements.txt
 # !README.md
+
+*.env
+keys.env

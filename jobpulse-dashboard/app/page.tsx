@@ -10,12 +10,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { PWAInstallButton } from "@/components/pwa-install-button"
+import { PushNotificationButton } from "@/components/push-notification-button"
+import { UserMenu } from "@/components/UserMenu"
 import {
   Search, Filter, SortAsc, X, MapPin, Globe, Flame, Calendar, Building2,
   Github, Linkedin, Coffee, Copy, Check, TrendingUp, ExternalLink
 } from "lucide-react"
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001"
+const API_URL = process.env.NEXT_PUBLIC_API_URL || ""
 
 // Filtros de localização com ICONES
 const LOCATION_FILTERS = [
@@ -87,7 +89,13 @@ export default function Home() {
   const deduplicateJobs = (jobList: Job[]): Job[] => {
     const seen = new Set<string>()
     return jobList.filter(job => {
-      const key = `${job.titulo.toLowerCase().trim()}|${job.empresa.toLowerCase().trim()}`
+      // Defensive coding against null/undefined
+      const title = job.titulo ? job.titulo.toLowerCase().trim() : ""
+      const company = job.empresa ? job.empresa.toLowerCase().trim() : ""
+
+      if (!title) return false // Valid jobs must have a title
+
+      const key = `${title}|${company}`
       if (seen.has(key)) return false
       seen.add(key)
       return true
@@ -141,10 +149,14 @@ export default function Home() {
       const isBlacklisted = BLACKLIST_TERMS.some(term => job.titulo.toLowerCase().includes(term))
       if (isBlacklisted && searchTerm === "") return false
 
-      // Search filter
-      const matchesSearch = searchTerm === "" ||
-        job.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        job.empresa.toLowerCase().includes(searchTerm.toLowerCase())
+      // Search filter (Multi-term AND logic)
+      const matchesSearch = (() => {
+        if (searchTerm === "") return true
+        const terms = searchTerm.toLowerCase().split(/\s+/).filter(t => t.length > 0)
+        const textToSearch = (job.titulo + " " + job.empresa).toLowerCase()
+        // All terms must be present
+        return terms.every(term => textToSearch.includes(term))
+      })()
 
       // Check if job is remote
       const isRemote = /remot|home|remote/i.test(job.localizacao) ||
@@ -277,12 +289,17 @@ export default function Home() {
 
           <div className="flex items-center gap-4">
             <div className="hidden md:flex items-center gap-4 text-sm text-muted-foreground border-r border-border/50 pr-4">
+              <a href="/tracker" className="flex items-center gap-1.5 hover:text-violet-500 transition-colors mr-2">
+                <span className="font-medium text-foreground">Kanban</span>
+              </a>
               <span className="flex items-center gap-1.5">
                 <TrendingUp className="w-4 h-4 text-emerald-500" />
                 <span className="font-medium text-foreground">{stats.today}</span>
                 <span className="text-xs">novas</span>
               </span>
             </div>
+            <PushNotificationButton />
+            <UserMenu />
             <PWAInstallButton />
             <ThemeToggle />
           </div>
@@ -316,7 +333,7 @@ export default function Home() {
               <Flame className="w-5 h-5 mr-2" /> Ver Vagas
             </Button>
             <Button variant="outline" size="lg" className="rounded-full h-12 px-8 border-border/50 hover:bg-muted font-medium" asChild>
-              <a href="https://paulomoraes.cloud" target="_blank">
+              <a href="https://paulomoraes.cloud" target="_blank" rel="noopener noreferrer">
                 <span className="mr-2">🚀</span> Meu Portfolio
               </a>
             </Button>
@@ -333,7 +350,7 @@ export default function Home() {
               <img src="https://github.com/Loonder.png" alt="Paulo" className="w-12 h-12 rounded-full border-2 border-violet-500/50 group-hover:border-violet-500 transition-colors" />
               <div>
                 <CardTitle className="text-base">Paulo Moraes</CardTitle>
-                <a href="https://paulomoraes.cloud" target="_blank" className="text-xs text-violet-500 hover:underline flex items-center gap-1">
+                <a href="https://paulomoraes.cloud" target="_blank" rel="noopener noreferrer" className="text-xs text-violet-500 hover:underline flex items-center gap-1">
                   paulomoraes.cloud <ExternalLink className="w-2.5 h-2.5" />
                 </a>
               </div>
@@ -341,12 +358,12 @@ export default function Home() {
             <CardContent>
               <div className="flex gap-2">
                 <Button variant="outline" size="sm" className="flex-1 h-8 text-xs" asChild>
-                  <a href="https://linkedin.com/in/paulomoraesdev" target="_blank">
+                  <a href="https://linkedin.com/in/paulomoraesdev" target="_blank" rel="noopener noreferrer">
                     <Linkedin className="w-3.5 h-3.5 mr-2" /> LinkedIn
                   </a>
                 </Button>
                 <Button variant="outline" size="sm" className="flex-1 h-8 text-xs" asChild>
-                  <a href="https://github.com/Loonder" target="_blank">
+                  <a href="https://github.com/Loonder" target="_blank" rel="noopener noreferrer">
                     <Github className="w-3.5 h-3.5 mr-2" /> GitHub
                   </a>
                 </Button>
@@ -598,11 +615,11 @@ export default function Home() {
             </div>
 
             <p className="text-xs text-muted-foreground">
-              Feito com 💜 por <a href="https://paulomoraes.cloud" target="_blank" className="hover:text-violet-500 transition-colors">Paulo Moraes</a>
+              Feito com 💜 por <a href="https://paulomoraes.cloud" target="_blank" rel="noopener noreferrer" className="hover:text-violet-500 transition-colors">Paulo Moraes</a>
             </p>
 
             <div className="flex gap-4">
-              <a href="https://paulomoraes.cloud" target="_blank" className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
+              <a href="https://paulomoraes.cloud" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
                 <Globe className="w-3 h-3" /> Portfolio
               </a>
               <a href="https://github.com/Loonder" className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">

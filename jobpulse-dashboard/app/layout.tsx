@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
@@ -13,6 +14,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: "#7c3aed",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export const metadata: Metadata = {
   title: {
     default: "BooJ 👻 | Caçador de Vagas TI & Vendas",
@@ -20,7 +28,6 @@ export const metadata: Metadata = {
   },
   description: "Encontre seu Estágio em TI, vaga Junior ou oportunidade como SDR/Vendas sem esforço. O Boo varre a internet 24/7 para você não perder tempo. 🚀",
   manifest: "/manifest.json",
-  themeColor: "#7c3aed",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -58,7 +65,6 @@ export const metadata: Metadata = {
     creator: "@paulomoraesdev",
   },
   authors: [{ name: "Paulo Moraes", url: "https://paulomoraes.cloud" }],
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -76,14 +82,14 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased selection:bg-primary/20 bg-background text-foreground`}>
-        <ThemeProvider
-          defaultTheme="system"
-          storageKey="booj-theme"
-        >
-          <Providers>
+        <Providers>
+          <ThemeProvider
+            defaultTheme="system"
+            storageKey="booj-theme"
+          >
             {children}
-          </Providers>
-        </ThemeProvider>
+          </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );
