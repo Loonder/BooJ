@@ -159,7 +159,7 @@ export function KanbanBoard() {
                     ))}
                 </div>
 
-                {createPortal(
+                {typeof document !== 'undefined' && createPortal(
                     <DragOverlay>
                         {activeJob && <JobCard job={activeJob} />}
                     </DragOverlay>,
